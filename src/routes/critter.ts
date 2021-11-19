@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { Critter } from '../models/critter';
+import { Critter } from '@/models/critter';
 
 const router = express.Router();
 
