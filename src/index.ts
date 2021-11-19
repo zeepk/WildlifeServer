@@ -1,11 +1,11 @@
 import express from 'express';
 import mongoose, { ConnectOptions } from 'mongoose';
 import { json } from 'body-parser';
-import { fishRouter } from './routes/fish';
+import { critterRouter } from './routes/critter';
 
 const app = express();
 app.use(json());
-app.use(fishRouter);
+app.use(critterRouter);
 
 mongoose.connect('test');
 
