@@ -1,42 +1,20 @@
-import mongoose from 'mongoose';
-
-interface ICritter {
-	title: string;
+import { Document, Schema, model } from 'mongoose';
+export interface ICritter extends Document {
+	name: string;
 	description: string;
 }
 
-interface critterModelInterface extends mongoose.Model<critterDoc> {
-	build(attr: ICritter): critterDoc;
-}
-
-interface critterDoc extends mongoose.Document {
-	title: string;
-	description: string;
-}
-
-const critterSchema = new mongoose.Schema({
-	title: {
-		type: String,
-		required: true,
+const CritterSchema = new Schema<ICritter>(
+	{
+		name: String,
+		description: String,
 	},
-	description: {
-		type: String,
-		required: true,
+	{
+		timestamps: {
+			createdAt: 'createdAt',
+			updatedAt: 'updatedAt',
+		},
 	},
-});
-
-critterSchema.statics.build = (attr: ICritter) => {
-	return new Critter(attr);
-};
-
-const Critter = mongoose.model<critterDoc, critterModelInterface>(
-	'critter',
-	critterSchema
 );
 
-Critter.build({
-	title: 'some title',
-	description: 'some description',
-});
-
-export { Critter };
+export const Critter = model<ICritter>('Critter', CritterSchema);

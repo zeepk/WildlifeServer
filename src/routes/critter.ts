@@ -9,10 +9,9 @@ router.get('/api/critter', async (req: Request, res: Response) => {
 });
 
 router.post('/api/critter', async (req: Request, res: Response) => {
-	const { title, description } = req.body;
+	const { name, description } = req.body;
 
-	const createdCritter = Critter.build({ title, description });
-	await createdCritter.save();
+	const createdCritter = Critter.create({ name, description });
 	return res.status(201).send(createdCritter);
 });
 
