@@ -10,7 +10,13 @@ const connectionString = process.env.MONGO_DB_CONN_STRING;
 
 const app = express();
 var session = require('express-session');
+var bodyParser = require('body-parser');
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 // config express-session
 var sess = {
 	secret: 'secret',

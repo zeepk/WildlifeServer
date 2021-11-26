@@ -1,18 +1,24 @@
-// routes/users.js
-
-var express = require('express');
+import express, { Request, Response } from 'express';
 var secured = require('../lib/middleware/secured');
 var router = express.Router();
+var ManagementClient = require('auth0').ManagementClient;
 
-/* GET user profile. */
-router.get('/user', secured(), function (req, res, next) {
+var management = new ManagementClient({
+	token: process.env.AUTH0_V2_TOKEN_TEST,
+	domain: process.env.AUTH0_DOMAIN,
+});
+
+router.get('/api/user', secured(), async function (req: any, res, next) {
 	const { _raw, _json, ...userProfile } = req.user;
-	// res.render('user', {
-	// 	userProfile: JSON.stringify(userProfile, null, 2),
-	// 	title: 'Profile page',
-	// });
-	console.log(userProfile.id);
-	return res.status(200).send(userProfile);
+	const resp = await management.getUser({ id: userProfile.id });
+	return res.status(200).send(resp);
+});
+
+router.put('/api/username', secured(), async (req: Request, res: Response) => {
+	console.log(req);
+	const { id, nickname } = req.body;
+	const resp = await management.updateUser({ id }, { nickname });
+	return res.status(200).send(resp);
 });
 
 module.exports = router;

@@ -10,7 +10,14 @@ router.get('/api/caught', secured(), async (req: any, res: Response) => {
 	return res.status(200).send(caught);
 });
 
-router.post('/api/caught', async (req: Request, res: Response) => {
+router.post('/api/caught', secured(), async (req: Request, res: Response) => {
+	const { name, description } = req.body;
+
+	const createdCaught = Caught.create({ name, description });
+	return res.status(201).send(createdCaught);
+});
+
+router.delete('/api/caught', secured(), async (req: Request, res: Response) => {
 	const { name, description } = req.body;
 
 	const createdCaught = Caught.create({ name, description });
