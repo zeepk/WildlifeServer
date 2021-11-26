@@ -1,27 +1,35 @@
 import express, { Request, Response } from 'express';
 import { Caught } from '@/models/caught';
 const router = express.Router();
-var secured = require('../lib/middleware/secured');
+var secured = require('@/lib/middleware/secured');
 
 router.get('/api/caught', secured(), async (req: any, res: Response) => {
-	const caught = await Caught.find({});
 	const { _raw, _json, ...userProfile } = req.user;
-	console.log(userProfile.id);
+	const caught = await Caught.find({ userId: userProfile.id });
 	return res.status(200).send(caught);
 });
 
-router.post('/api/caught', secured(), async (req: Request, res: Response) => {
-	const { name, description } = req.body;
+router.post('/api/caught', secured(), async (req: any, res: Response) => {
+	const { _raw, _json, ...userProfile } = req.user;
+	const { id, ueid, name, critterType } = req.body;
 
-	const createdCaught = Caught.create({ name, description });
+	const createdCaught = await Caught.create({
+		userId: userProfile.id,
+		id,
+		ueid,
+		name,
+		critterType,
+		active: true,
+	});
 	return res.status(201).send(createdCaught);
 });
 
-router.delete('/api/caught', secured(), async (req: Request, res: Response) => {
-	const { name, description } = req.body;
+router.delete('/api/caught', secured(), async (req: any, res: Response) => {
+	const { _raw, _json, ...userProfile } = req.user;
+	const { id, ueid } = req.body;
 
-	const createdCaught = Caught.create({ name, description });
-	return res.status(201).send(createdCaught);
+	await Caught.deleteOne({ userId: userProfile.id, id, ueid });
+	return res.status(200).send('Deleted successfully');
 });
 
 export { router as caughtRouter };

@@ -3,7 +3,7 @@ import { critterTypes } from '@/utils/constants';
 export interface ICritter extends Document {
 	name: string;
 	description: string;
-	critterType: string | undefined;
+	critterType: number | undefined;
 	order: number;
 	icon_uri: string;
 	image_uri: string;
@@ -57,7 +57,7 @@ const CritterSchema = new Schema<ICritter>(
 		name: String,
 		description: String,
 		critterType: {
-			type: String,
+			type: Number,
 			enum: critterTypes,
 			default: critterTypes.FISH,
 		},
