@@ -2,6 +2,7 @@ import { Document, Schema, model, Number } from 'mongoose';
 import { critterTypes } from '@/utils/constants';
 export interface ICritter extends Document {
 	name: string;
+	ueid: string;
 	description: string;
 	critterType: number | undefined;
 	order: number;
@@ -55,6 +56,7 @@ export interface ICritter extends Document {
 const CritterSchema = new Schema<ICritter>(
 	{
 		name: String,
+		ueid: String,
 		description: String,
 		critterType: {
 			type: Number,

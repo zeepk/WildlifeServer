@@ -1,7 +1,7 @@
 import { Document, Schema, model } from 'mongoose';
 import { critterTypes } from '@/utils/constants';
 export interface ICaught extends Document {
-	id: number;
+	id: string;
 	userId: string;
 	ueid: string;
 	name: string;
@@ -11,7 +11,7 @@ export interface ICaught extends Document {
 
 const CaughtSchema = new Schema<ICaught>(
 	{
-		id: Number,
+		id: String,
 		userId: String,
 		ueid: String,
 		name: String,
