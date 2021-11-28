@@ -1,6 +1,7 @@
 require('dotenv').config();
 import 'module-alias/register';
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import { json } from 'body-parser';
 import { critterRouter } from '@/routes/critters';
@@ -14,7 +15,7 @@ var bodyParser = require('body-parser');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cors());
 // parse application/json
 app.use(bodyParser.json());
 // config express-session
