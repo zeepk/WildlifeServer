@@ -1,15 +1,14 @@
 import express, { Request, Response } from 'express';
 import { Caught } from '@/models/caught';
 const router = express.Router();
-var secured = require('@/lib/middleware/secured');
 
-router.get('/api/caught', secured(), async (req: any, res: Response) => {
+router.get('/api/caught', async (req: any, res: Response) => {
 	const { _raw, _json, ...userProfile } = req.user;
 	const caught = await Caught.find({ userId: userProfile.id });
 	return res.status(200).send(caught);
 });
 
-router.post('/api/caught', secured(), async (req: any, res: Response) => {
+router.post('/api/caught', async (req: any, res: Response) => {
 	const { _raw, _json, ...userProfile } = req.user;
 	const { id, ueid, name, critterType } = req.body;
 
@@ -24,7 +23,7 @@ router.post('/api/caught', secured(), async (req: any, res: Response) => {
 	return res.status(201).send(createdCaught);
 });
 
-router.delete('/api/caught', secured(), async (req: any, res: Response) => {
+router.delete('/api/caught', async (req: any, res: Response) => {
 	const { _raw, _json, ...userProfile } = req.user;
 	const { id, ueid } = req.body;
 

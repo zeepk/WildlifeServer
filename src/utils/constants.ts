@@ -1,4 +1,3 @@
-export const gameVersionOsrsText = 'osrs';
 export enum critterTypes {
 	FISH,
 	BUG,
