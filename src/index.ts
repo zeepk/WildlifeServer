@@ -7,6 +7,7 @@ import { json } from 'body-parser';
 import { critterRouter } from '@/routes/critters';
 import { updateRouter } from '@/routes/update';
 import { caughtRouter } from '@/routes/caught';
+import { profileRouter } from '@/routes/profiles';
 const connectionString = process.env.MONGO_DB_CONN_STRING;
 
 const app = express();
@@ -47,6 +48,7 @@ app.use(json());
 app.use(critterRouter);
 app.use(updateRouter);
 app.use(caughtRouter);
+app.use(profileRouter);
 if (connectionString) {
 	mongoose.connect(connectionString);
 }

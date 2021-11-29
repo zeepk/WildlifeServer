@@ -28,5 +28,8 @@
 	},
 	"_moduleAliases": {
 		"@": "src"
+	},
+	"engines": {
+		"node": "14.x"
 	}
 }
