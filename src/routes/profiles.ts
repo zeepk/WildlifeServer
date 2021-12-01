@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { Profile } from '@/models/profile';
+import { Caught } from '@/models/caught';
 const router = express.Router();
 
 // "given_name": "Matt",
@@ -19,7 +20,12 @@ router.get('/api/profile/:id', async (req: Request, res: Response) => {
 	if (!profile) {
 		return res.sendStatus(404);
 	}
-	return res.status(200).send(profile);
+	const caught = await Caught.find({ userId });
+	const resp = {
+		profile,
+		caught: caught ? caught : [],
+	};
+	return res.status(200).send(resp);
 });
 
 router.post('/api/profile', async (req: Request, res: Response) => {
