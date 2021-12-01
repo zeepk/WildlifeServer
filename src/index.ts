@@ -53,6 +53,6 @@ if (connectionString) {
 	mongoose.connect(connectionString);
 }
 
-app.listen(8000, () => {
+app.listen(process.env.PORT || 8000, () => {
 	console.log('server is listening on port 8000');
 });
