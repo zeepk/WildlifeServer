@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Profile } from '@/models/profile';
 import { Caught } from '@/models/caught';
+import { hemispheres } from '@/utils/constants';
 const router = express.Router();
 
 // "given_name": "Matt",
@@ -35,6 +36,7 @@ router.post('/api/profile', async (req: Request, res: Response) => {
 		authId,
 		username,
 		avatar,
+		hemisphere: hemispheres.NORTHERN,
 		friends: [],
 	});
 	return res.status(201).send(createdProfile);

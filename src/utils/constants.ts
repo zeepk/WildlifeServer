@@ -9,3 +9,8 @@ export enum critterTypes {
 	VILLAGER,
 	REACTION,
 }
+
+export enum hemispheres {
+	NORTHERN,
+	SOUTHERN,
+}
